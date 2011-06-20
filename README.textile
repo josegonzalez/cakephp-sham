@@ -1,0 +1,66 @@
+h1. Sham Plugin
+
+Because SEO is a sham and you know it
+
+h2. Background
+
+I needed something to manage all my SEO-related needs for CakePackages, and while there were some community plugins that took care of certain things, they were either lacking or did way too much. So I built this.
+
+SEO isn't really a sham, I just couldn't think of a name that wouldn't conflict with the @Seo@ model for the component.
+
+h2. Requirements
+
+* PHP 5.2.6+
+* CakePHP 1.3
+
+h2. Installation
+
+_[Manual]_
+
+# Download this: http://github.com/josegonzalez/sham/zipball/master
+# Unzip that download.
+# Copy the resulting folder to app/plugins
+# Rename the folder you just copied to @sham@
+
+_[GIT Submodule]_
+
+In your app directory type:
+<pre><code>git submodule add git://github.com/josegonzalez/sham.git plugins/sham
+git submodule init
+git submodule update
+</code></pre>
+
+_[GIT Clone]_
+
+In your plugin directory type
+<pre><code>git clone git://github.com/josegonzalez/sham.git sham</code></pre>
+
+h2. Usage
+
+TODO
+
+h2. Todo
+
+* Document this plugin
+
+h2. License
+
+Copyright (c) 2011 Jose Diaz-Gonzalez
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
