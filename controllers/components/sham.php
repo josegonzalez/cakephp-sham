@@ -207,7 +207,7 @@ class ShamComponent extends Object {
 			return;
 		}
 
-		$here = '/' . trim(str_replace($this->Controller->webroot, '/', $this->Controller->here), '/');
+		$here = str_replace(' ', '+', '/' . trim(str_replace($this->Controller->webroot, '/', $this->Controller->here), '/'));
 		if ($maxArgs !== null) {
 			if ($maxArgs) {
 				list($url) = array_chunk($this->Controller->params['pass'], $maxArgs);
@@ -244,7 +244,7 @@ class ShamComponent extends Object {
 			$url = $this->sortUrl($url);
 		}
 
-		$normalized = Router::normalize($url);
+		$normalized = str_replace(' ', '+', Router::normalize($url));
 		if ($normalized !== $here) {
 			if (Configure::read()) {
 				$this->Controller->Session->setFlash('SEOComponent: Redirecting from "' . $here . '" to "' . $normalized . '"');
