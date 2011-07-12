@@ -87,6 +87,10 @@ class ShamComponent extends Object {
 			$this->Controller->_seoFallback();
 		}
 
+		if (method_exists($this->Controller, '_seoAfterSham')) {
+			$this->Controller->{'_seoAfterSham'}();
+		}
+
 		$this->setMeta('charset', Configure::read('App.encoding'));
 		$this->Controller->set('_meta', $this->meta);
 	}
@@ -129,7 +133,7 @@ class ShamComponent extends Object {
 			if ($header == 'canonical') {
 				$this->setMeta('canonical', $value, array('escape' => false));
 			} else {
-				$this->setMeta($key, $value);
+				$this->setMeta($header, $value);
 			}
 		}
 
@@ -234,7 +238,7 @@ class ShamComponent extends Object {
 
 			if (!isset($url[$key])) {
 				$url[$key] = $value;
-				if (in_array($value, array_keys($numeric))) {
+				if (in_array($value, array_keys($numeric), true)) {
 					unset($url[$numeric[$value]]);
 				}
 			}
