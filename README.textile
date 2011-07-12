@@ -37,7 +37,36 @@ In your plugin directory type
 
 h2. Usage
 
-TODO
+Add the component to your AppController $components and $helpers arrays:
+
+<pre><code>
+public $components = array('Sham.Sham');
+
+public $helpers = array('Sham.Sham');
+</code></pre>
+
+Create the callbacks for setting default metadata in your AppController:
+
+<pre><code>
+	public function _seoFallback() {
+		// ... code ...
+	}
+</pre></code>
+
+To each controller, add a callback to set SEO for each view:
+
+<pre><code>
+class UsersController extends AppController {
+
+	public function _seoIndex() {
+		$this->Sham->loadBySlug('users');
+		$this->Sham->setMeta('title', 'CakePHP Plugin and Application Search | CakePackages');
+		// set more variables
+	}
+</pre></code>
+
+
+TODO - finish usage
 
 h2. Todo
 
