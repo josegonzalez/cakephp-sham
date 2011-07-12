@@ -63,6 +63,8 @@ class UsersController extends AppController {
 		$this->Sham->setMeta('title', 'CakePHP Plugin and Application Search | CakePackages');
 		// set more variables
 	}
+</pre></code>
+
 
 TODO - finish usage
 
