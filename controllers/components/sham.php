@@ -129,7 +129,7 @@ class ShamComponent extends Object {
 			if ($header == 'canonical') {
 				$this->setMeta('canonical', $value, array('escape' => false));
 			} else {
-				$this->setMeta($key, $value);
+				$this->setMeta($header, $value);
 			}
 		}
 
