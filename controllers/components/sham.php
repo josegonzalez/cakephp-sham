@@ -51,7 +51,10 @@ class ShamComponent extends Object {
 	public function initialize(&$controller, $settings = array()) {
 		$this->Controller =& $controller;
 		$this->settings = array_merge($this->settings, array(
-			'encoding' => Configure::read('App.encoding')
+			'autoRun' => true,
+			'encoding' => Configure::read('App.encoding'),
+			'maxArgs' => null,
+			'sortNamedParams' => true,
 		), (array) $settings);
 
 		if ($this->settings['autoRun'] && $controller->name != 'CakeError') {
