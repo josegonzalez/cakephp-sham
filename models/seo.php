@@ -20,7 +20,7 @@ class Seo extends ShamAppModel {
 
 		if ($options['seo_only']) {
 			$keys = array('title_for_layout', 'description', 'keywords', 'canonical', 'h2_for_layout');
-			$seo[$this->alias] = array_intersect_key($seo[$this->alias], $keys);
+			$seo[$this->alias] = array_intersect_key($seo[$this->alias], array_combine($keys, $keys));
 		}
 
 		if (!empty($options['skip'])) {
