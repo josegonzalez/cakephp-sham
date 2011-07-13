@@ -40,6 +40,7 @@ class ShamComponent extends Object {
 		'encoding' => 'UTF-8',
 		'maxArgs' => null,
 		'sortNamedParams' => true,
+		'skipExtensions' => array('html'),
 	);
 
 /**
@@ -244,6 +245,10 @@ class ShamComponent extends Object {
 			}
 		}
 
+		if ($this->_addExt()) {
+			$url['ext'] = $this->Controller->params['url']['ext'];
+		}
+
 		if ($this->settings['sortNamedParams']) {
 			$url = $this->sortUrl($url);
 		}
@@ -300,4 +305,15 @@ class ShamComponent extends Object {
 		return am($named, $url);
 	}
 
+	protected function _addExt() {
+		if (!empty($this->Controller->params['url']['ext'])) {
+			foreach ($this->settings['skipExtensions'] as $ext) {
+				if ($this->Controller->params['url']['ext'] == $ext) {
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
 }
