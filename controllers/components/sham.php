@@ -258,6 +258,7 @@ class ShamComponent extends Object {
 			if (Configure::read()) {
 				$this->Controller->Session->setFlash('SEOComponent: Redirecting from "' . $here . '" to "' . $normalized . '"');
 			}
+			$normalized = str_replace('+', '%20', Router::normalize($url));
 			return $this->Controller->redirect($normalized, 301);
 		}
 	}
