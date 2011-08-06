@@ -38,6 +38,7 @@ class ShamComponent extends Object {
 	public $settings = array(
 		'autoRun' => true,
 		'encoding' => 'UTF-8',
+		'fallback' => '_seoFallback',
 		'maxArgs' => null,
 		'sortNamedParams' => true,
 		'skipExtensions' => array('html'),
@@ -54,6 +55,7 @@ class ShamComponent extends Object {
 		$this->settings = array_merge($this->settings, array(
 			'autoRun' => true,
 			'encoding' => Configure::read('App.encoding'),
+    		'fallback' => '_seoFallback',
 			'maxArgs' => null,
 			'sortNamedParams' => true,
 			'skipExtensions' => array('html'),
@@ -88,8 +90,8 @@ class ShamComponent extends Object {
 	public function beforeRender() {
 		if (method_exists($this->Controller, '_seo' . ucfirst($this->Controller->params['action']))) {
 			$this->Controller->{'_seo' . ucfirst($this->Controller->params['action'])}();
-		} elseif (method_exists($this->Controller, '_seoFallback')) {
-			$this->Controller->_seoFallback();
+		} elseif (method_exists($this->Controller, $this->settings['fallback'])) {
+			$this->Controller->{$this->settings['fallback']}();
 		}
 
 		if (method_exists($this->Controller, '_seoAfterSham')) {
