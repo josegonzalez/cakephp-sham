@@ -40,6 +40,7 @@ class ShamComponent extends Object {
 		'encoding' => 'UTF-8',
 		'maxArgs' => null,
 		'sortNamedParams' => true,
+		'skipExtensions' => array('html'),
 	);
 
 /**
@@ -55,6 +56,7 @@ class ShamComponent extends Object {
 			'encoding' => Configure::read('App.encoding'),
 			'maxArgs' => null,
 			'sortNamedParams' => true,
+			'skipExtensions' => array('html'),
 		), (array) $settings);
 
 		if ($this->settings['autoRun'] && $controller->name != 'CakeError') {
@@ -88,6 +90,10 @@ class ShamComponent extends Object {
 			$this->Controller->{'_seo' . ucfirst($this->Controller->params['action'])}();
 		} elseif (method_exists($this->Controller, '_seoFallback')) {
 			$this->Controller->_seoFallback();
+		}
+
+		if (method_exists($this->Controller, '_seoAfterSham')) {
+			$this->Controller->{'_seoAfterSham'}();
 		}
 
 		$this->setMeta('charset', Configure::read('App.encoding'));
@@ -237,10 +243,14 @@ class ShamComponent extends Object {
 
 			if (!isset($url[$key])) {
 				$url[$key] = $value;
-				if (in_array($value, array_keys($numeric))) {
+				if (in_array($value, array_keys($numeric), true)) {
 					unset($url[$numeric[$value]]);
 				}
 			}
+		}
+
+		if ($this->_addExt()) {
+			$url['ext'] = $this->Controller->params['url']['ext'];
 		}
 
 		if ($this->settings['sortNamedParams']) {
@@ -252,6 +262,7 @@ class ShamComponent extends Object {
 			if (Configure::read()) {
 				$this->Controller->Session->setFlash('SEOComponent: Redirecting from "' . $here . '" to "' . $normalized . '"');
 			}
+			$normalized = str_replace('+', '%20', Router::normalize($url));
 			return $this->Controller->redirect($normalized, 301);
 		}
 	}
@@ -299,4 +310,15 @@ class ShamComponent extends Object {
 		return am($named, $url);
 	}
 
+	protected function _addExt() {
+		if (!empty($this->Controller->params['url']['ext'])) {
+			foreach ($this->settings['skipExtensions'] as $ext) {
+				if ($this->Controller->params['url']['ext'] == $ext) {
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
 }
