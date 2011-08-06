@@ -39,38 +39,76 @@ h2. Usage
 
 Add the component to your AppController $components and $helpers arrays:
 
-<pre><code>
-public $components = array('Sham.Sham');
-
-public $helpers = array('Sham.Sham');
+<pre><code><?php
+class AppController extends Controller {
+	public $components = array('Sham.Sham');
+	public $helpers = array('Sham.Sham');
+}
+?>
 </code></pre>
 
-Create the callbacks for setting default metadata in your AppController:
+By default, Sham does not automatically load SEO data from the database. You should create callbacks in your controllers to do that. Callbacks are on a per-action basis, with @_seo@ prepending the name of the action, where the first letter of the action is upper-cased:
 
-<pre><code>
+<pre><code><?php
+class UsersController extends AppController {
+
+	public function profile($username = null) {
+		// Some code that works with user profiles
+	}
+
+	public function _seoProfile() {
+		// Called in the beforeRender() if the action was successfully processed
+		$user = $this->viewVars['user'];
+		$this->Sham->loadBySlug('view/' . $user['User']['username']);
+
+		// Set some defaults in case the record could not be loaded from the DB
+		$description = "awesome description of the page, with some good default keywords, referencing {$user['User']['username']}";
+		$keywords = array($user['User']['username'] . ' profile', 'profiles', 'social network');
+
+		$this->Sham->setMeta('title', "{$user['User']['username']}'s Profile  | Social Network");
+		$this->Sham->setMeta('description', $description);
+		$this->Sham->setMeta('keywords', implode(', ', $keywords));
+		$this->Sham->setMeta('canonical', "/view/{$user['User']['username']}/", array('escape' => false));
+	}
+}
+?>
+</code></pre>
+
+If you do not have a callback for a given action, there is always the option of specifying a "fallback" method. This is configurable in the components settings, but is @Controller::_seoFallback()@ by default:
+
+<pre><code><?php
+class AppController extends Controller {
+	public $components = array('Sham.Sham');
+	public $helpers = array('Sham.Sham');
+
 	public function _seoFallback() {
 		// ... code ...
 	}
-</pre></code>
+}
+?>
+</code></pre>
 
-To each controller, add a callback to set SEO for each view:
+Once you've loaded seo data, it's time to set it for the view. Included is a @ShamHelper@ which automatically will deal with these details:
 
-<pre><code>
-class UsersController extends AppController {
+<pre><code><!DOCTYPE html>
+<html lang="en">
+	<head>
+		<?php echo $this->Sham->out('charset'); ?>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<?php echo $this->Sham->out(null, array('skip' => array('charset'))); ?>
+		<?php echo $this->Html->css(array('style', 'uniform.default')); ?>
+	<head>
+	<body>
+		...
+	</body>
+</html>
+</code></pre>
 
-	public function _seoIndex() {
-		$this->Sham->loadBySlug('users');
-		$this->Sham->setMeta('title', 'CakePHP Plugin and Application Search | CakePackages');
-		// set more variables
-	}
-</pre></code>
-
-
-TODO - finish usage
+As you can see, we can call individual SEO information - in this case the charset - if necessary, and then call the rest by passing @null@ as an option to the helper. This is useful in some cases where you might need to have the SEO data in a specific order.
 
 h2. Todo
 
-* Document this plugin
+* Document Helper and Component options
 
 h2. License
 
