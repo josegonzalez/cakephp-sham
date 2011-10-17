@@ -88,6 +88,10 @@ class ShamComponent extends Object {
  * @access public
  */
 	public function beforeRender() {
+		if (!isset($this->Controller)) {
+			return;
+		}
+
 		if (method_exists($this->Controller, '_seo' . ucfirst($this->Controller->params['action']))) {
 			$this->Controller->{'_seo' . ucfirst($this->Controller->params['action'])}();
 		} elseif (method_exists($this->Controller, $this->settings['fallback'])) {
