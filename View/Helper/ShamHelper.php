@@ -30,23 +30,23 @@ class ShamHelper extends AppHelper {
  *
  * @param array $options
  */
-	public function __construct($options = array()) {
-		$view =& ClassRegistry::getObject('view');
+	public function __construct(View $View, $settings = array()) {
+		parent::__construct($View, $settings);
 
-		if (isset($view->viewVars['_meta']['canonical'])) {
-			$this->canonical = $view->viewVars['_meta']['canonical'];
-		} elseif (isset($view->viewVars['_canonical'])) {
-			$this->canonical = $view->viewVars['_canonical'];
+		if (isset($this->_View->viewVars['_meta']['canonical'])) {
+			$this->canonical = $this->_View->viewVars['_meta']['canonical'];
+		} elseif (isset($this->_View->viewVars['_canonical'])) {
+			$this->canonical = $this->_View->viewVars['_canonical'];
 		} else {
-			$this->canonical = $view->here;
+			$this->canonical = $this->_View->here;
 		}
 
-		if (isset($view->viewVars['_meta'])) {
-			$this->meta = (array) $view->viewVars['_meta'];
+		if (isset($this->_View->viewVars['_meta'])) {
+			$this->meta = (array) $this->_View->viewVars['_meta'];
 		}
 
 		$this->meta['canonical'] = $this->canonical;
-		$this->meta = array_merge((array) $options, $this->meta);
+		$this->meta = array_merge((array) $settings, $this->meta);
 	}
 
 /**

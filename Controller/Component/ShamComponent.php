@@ -1,8 +1,6 @@
 <?php
 
-if (class_exists('Router')) {
-	App::import('Core', 'Router');
-}
+App::uses('Router', 'Routing');
 
 /**
  * ShamComponent class
@@ -13,7 +11,7 @@ if (class_exists('Router')) {
  * @package       sham
  * @subpackage    sham.controllers.components
  */
-class ShamComponent extends Object {
+class ShamComponent extends Component {
 
 /**
  * Other components used by the Seo component
@@ -45,21 +43,50 @@ class ShamComponent extends Object {
 	);
 
 /**
+ * Request object
+ *
+ * @var CakeRequest
+ */
+	public $request;
+
+/**
+ * Response object
+ *
+ * @var CakeResponse
+ */
+	public $response;
+
+/**
+ * Method list for bound controller
+ *
+ * @var array
+ */
+	protected $_methods = array();
+
+/**
+ * Constructor.
+ *
+ * @param ComponentCollection $collection
+ * @param array $settings
+ */
+	public function __construct(ComponentCollection $collection, $settings = array()) {
+		$this->settings['encoding'] = Configure::read('App.encoding');
+		$settings = array_merge($this->settings, $settings);
+		parent::__construct($collection, $settings);
+	}
+
+/**
  * Initialize component
  *
  * @param object $controller Instantiating controller
  * @access public
  */
-	public function initialize(&$controller, $settings = array()) {
-		$this->Controller =& $controller;
-		$this->settings = array_merge($this->settings, array(
-			'autoRun' => true,
-			'encoding' => Configure::read('App.encoding'),
-    		'fallback' => '_seoFallback',
-			'maxArgs' => null,
-			'sortNamedParams' => true,
-			'skipExtensions' => array('html'),
-		), (array) $settings);
+	public function initialize(&$controller) {
+		$this->Controller = $controller;
+
+		$this->request = $controller->request;
+		$this->response = $controller->response;
+		$this->_methods = $controller->methods;
 
 		if ($this->settings['autoRun'] && $controller->name != 'CakeError') {
 			$this->check($this->settings['maxArgs']);
@@ -256,7 +283,7 @@ class ShamComponent extends Object {
 		}
 
 		if ($this->_addExt()) {
-			$url['ext'] = $this->Controller->params['url']['ext'];
+			$url['ext'] = $this->request->params['ext'];
 		}
 
 		if ($this->settings['sortNamedParams']) {
@@ -265,7 +292,7 @@ class ShamComponent extends Object {
 
 		$normalized = str_replace(' ', '+', Router::normalize($url));
 		if ($normalized !== $here) {
-			if (Configure::read()) {
+			if (Configure::read('debug')) {
 				$this->Controller->Session->setFlash('SEOComponent: Redirecting from "' . $here . '" to "' . $normalized . '"');
 			}
 			$normalized = str_replace('+', '%20', Router::normalize($url));
@@ -317,9 +344,13 @@ class ShamComponent extends Object {
 	}
 
 	protected function _addExt() {
-		if (!empty($this->Controller->params['url']['ext'])) {
+		if (empty($this->request->params['ext'])) {
+			return false;
+		}
+
+		if (!empty($this->request->params['ext'])) {
 			foreach ($this->settings['skipExtensions'] as $ext) {
-				if ($this->Controller->params['url']['ext'] == $ext) {
+				if ($this->request->params['ext'] == $ext) {
 					return false;
 				}
 			}
