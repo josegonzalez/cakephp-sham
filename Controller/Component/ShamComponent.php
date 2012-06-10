@@ -81,7 +81,7 @@ class ShamComponent extends Component {
  * @param object $controller Instantiating controller
  * @access public
  */
-	public function initialize(&$controller) {
+	public function initialize(Controller $controller) {
 		$this->Controller = $controller;
 
 		$this->request = $controller->request;
@@ -103,7 +103,7 @@ class ShamComponent extends Component {
  * @return void
  * @access public
  */
-	public function beforeRedirect(&$Controller, $url, $status, $exit) {
+	public function beforeRedirect(Controller $controller, $url, $status = null, $exit = true) {
 		if ($this->settings['sortNamedParams']) {
 			return $this->sortUrl($url);
 		}
@@ -114,7 +114,7 @@ class ShamComponent extends Component {
  *
  * @access public
  */
-	public function beforeRender() {
+	public function beforeRender(Controller $controller) {
 		if (!isset($this->Controller)) {
 			return;
 		}
