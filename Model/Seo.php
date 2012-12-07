@@ -8,7 +8,7 @@ class Seo extends ShamAppModel {
 			'skip' => array(),
 		), (array) $options);
 
-		$hash = md5(serialize($options));
+		$hash = md5(serialize($options['uri']));
 		if (($record = Cache::read('seo.slug.' . $hash)) !== false) {
 			return $record;
 		}
