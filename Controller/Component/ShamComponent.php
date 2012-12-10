@@ -152,7 +152,7 @@ class ShamComponent extends Component {
 		$this->Controller->loadModel('Sham.Seo');
 		$seo = $this->Controller->Seo->retrieveBySlug($slug, array(
 			'seo_only' => true,
-                	'uri'=>$this->Controller->here
+			'uri'=>$this->Controller->here
 		));
 
 		if (!$seo) {
