@@ -11,7 +11,7 @@ SEO isn't really a sham, I just couldn't think of a name that wouldn't conflict 
 h2. Requirements
 
 * PHP 5.2.6+
-* CakePHP 1.3
+* CakePHP 2.x
 
 h2. Installation
 
