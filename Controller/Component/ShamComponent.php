@@ -217,7 +217,7 @@ class ShamComponent extends Component {
 			'escape' => true,
 			'encoding' => $this->settings['encoding'],
 			'replace' => false,
-		), (array) $options);
+		), (array)$options);
 		$key = strtolower($key);
 
 		if (is_null($value)) {

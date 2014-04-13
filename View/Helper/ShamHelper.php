@@ -42,11 +42,11 @@ class ShamHelper extends AppHelper {
 		}
 
 		if (isset($this->_View->viewVars['_meta'])) {
-			$this->meta = (array) $this->_View->viewVars['_meta'];
+			$this->meta = (array)$this->_View->viewVars['_meta'];
 		}
 
 		$this->meta['canonical'] = $this->canonical;
-		$this->meta = array_merge((array) $settings, $this->meta);
+		$this->meta = array_merge((array)$settings, $this->meta);
 	}
 
 /**
@@ -75,17 +75,17 @@ class ShamHelper extends AppHelper {
  * Outputs a meta header or series of meta headers
  *
  * @param string $header Specific meta header to output
- * @param array $options 
+ * @param array $options
  * @return string
  */
 	public function out($header = null, $options = array()) {
 		$options = array_merge(array(
 			'implode' => '',
 			'skip' => array(),
-		), (array) $options);
+		), (array)$options);
 
 		if (!is_array($options['skip'])) {
-			$options['skip'] = (array) $options['skip'];
+			$options['skip'] = (array)$options['skip'];
 		}
 
 		if ($header) {

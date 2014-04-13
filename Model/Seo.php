@@ -6,7 +6,7 @@ class Seo extends ShamAppModel {
 			'record' => false,
 			'seo_only' => false,
 			'skip' => array(),
-		), (array) $options);
+		), (array)$options);
 
 		$hash = md5(serialize($options));
 		if (($record = Cache::read('seo.slug.' . $hash)) !== false) {
@@ -24,7 +24,7 @@ class Seo extends ShamAppModel {
 		}
 
 		if (!empty($options['skip'])) {
-			$seo[$this->alias] = array_diff_key($seo[$this->alias], (array) $options['skip']);
+			$seo[$this->alias] = array_diff_key($seo[$this->alias], (array)$options['skip']);
 		}
 
 		if ($options['record']) {
