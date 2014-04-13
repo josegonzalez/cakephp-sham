@@ -5,4 +5,3 @@ $map = array(
 	2 => array(
 		'002_index_optimizations' => 'M4f14cc59b43c4d8d9f7ba1fe75f6eb26'),
 );
-?>
