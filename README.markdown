@@ -1,5 +1,9 @@
-[![Build Status](https://travis-ci.org/josegonzalez/cakephp-sham.png?branch=master)](https://travis-ci.org/josegonzalez/cakephp-sham) [![Coverage Status](https://coveralls.io/repos/josegonzalez/cakephp-sham/badge.png?branch=master)](https://coveralls.io/r/josegonzalez/cakephp-sham?branch=master) [![Total Downloads](https://poser.pugx.org/josegonzalez/cakephp-sham/d/total.png)](https://packagist.org/packages/josegonzalez/cakephp-sham) [![Latest Stable Version](https://poser.pugx.org/josegonzalez/cakephp-sham/v/stable.png)](https://packagist.org/packages/josegonzalez/cakephp-sham)
-
+[![Build Status](https://img.shields.io/travis/josegonzalez/cakephp-sham/master.svg?style=flat-square)](https://travis-ci.org/josegonzalez/cakephp-sham) 
+[![Coverage Status](https://img.shields.io/coveralls/josegonzalez/cakephp-sham.svg?style=flat-square)](https://coveralls.io/r/josegonzalez/cakephp-sham?branch=master) 
+[![Total Downloads](https://img.shields.io/packagist/dt/josegonzalez/cakephp-sham.svg?style=flat-square)](https://packagist.org/packages/josegonzalez/cakephp-sham) 
+[![Latest Stable Version](https://img.shields.io/packagist/v/josegonzalez/cakephp-sham.svg?style=flat-square)](https://packagist.org/packages/josegonzalez/cakephp-sham) 
+[![Documentation Status](https://readthedocs.org/projects/cakephp-sham/badge/?version=latest&style=flat-square)](https://readthedocs.org/projects/cakephp-sham/?badge=latest)
+[![Gratipay](https://img.shields.io/gratipay/josegonzalez.svg?style=flat-square)](https://gratipay.com/~josegonzalez/)
 
 ## Requirements
 
